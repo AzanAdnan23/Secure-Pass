@@ -11,7 +11,7 @@ contract SecurePass {
     uint256 public eventCounter;
     uint256 public ticketCounter;
     uint256 public userCounter;
-     uint256 public constant RFID_CARD_COST = 10;
+    uint256 public constant RFID_CARD_COST = 10;
 
     modifier onlyEventOrganizer(uint _eventId) {
         require(
@@ -152,6 +152,7 @@ contract SecurePass {
         uint256 userId;
         address userAddress;
         bool hasRFIDCard;
+        uint256[] ticketsArray;
     }
 
     struct Ticket {
@@ -181,6 +182,7 @@ contract SecurePass {
         ticketCounter++;
         events[_eventId].ticketCount--;
 
+        users[msg.sender].ticketsArray.push(ticketCounter);
         tickets[ticketCounter] = Ticket({
             ticketId: ticketCounter,
             eventId: _eventId,
@@ -194,18 +196,80 @@ contract SecurePass {
             users[msg.sender] = User({
                 userId: userCounter,
                 userAddress: msg.sender,
-                hasRFIDCard: true
+                hasRFIDCard: true,
+                ticketsArray: new uint256[](0)
             });
+            users[msg.sender].ticketsArray.push(ticketCounter);
         }
 
         events[_eventId].ticketSold++;
     }
 
- 
     // get user details
+    function getUserDetails(
+        address _userAddress
+    ) external view returns (User memory) {
+        require(
+            users[_userAddress].userAddress == _userAddress,
+            "User does not exist"
+        );
+        return users[_userAddress];
+    }
+
     // get event details
+    function getEventDetails(
+        uint256 _eventId
+    ) external view returns (Event memory) {
+        require(events[_eventId].eventId == _eventId, "Event does not exist");
+        return events[_eventId];
+    }
+
     // get ticket details
+    function getTicketDetails(
+        uint256 _ticketId
+    ) external view returns (Ticket memory) {
+        require(
+            tickets[_ticketId].ticketId == _ticketId,
+            "Ticket does not exist"
+        );
+        return tickets[_ticketId];
+    }
 
     // get all events
-    // get all tickets
+    function getAllEvents() external view returns (Event[] memory) {
+        Event[] memory _events = new Event[](eventCounter);
+        for (uint256 i = 0; i < eventCounter; i++) {
+            _events[i] = events[i + 1];
+        }
+        return _events;
+    }
+
+    // get all tickets of a user
+    function getAllTicketsOfUser(
+        address _userAddress
+    ) external view returns (Ticket[] memory) {
+        uint256[] memory _tickets = users[_userAddress].ticketsArray;
+        Ticket[] memory ticketsOfUser = new Ticket[](_tickets.length);
+        for (uint256 i = 0; i < _tickets.length; i++) {
+            ticketsOfUser[i] = tickets[_tickets[i]];
+        }
+        return ticketsOfUser;
+    }
+
+    //is ticket valid from user
+    function isTicketValid(
+        uint256 _eventId,
+        uint256 _userID
+    ) external view returns (bool) {
+        for (uint256 i = 0; i < users[msg.sender].ticketsArray.length; i++) {
+            if (
+                users[msg.sender].ticketsArray[i] == _userID &&
+                tickets[_userID].eventId == _eventId
+            ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
