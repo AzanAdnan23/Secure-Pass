@@ -8,7 +8,7 @@ async function main() {
     );
   
     // let amount = ethers.utils.parseEther('5');
-     let tx1= await dContract.createEvent( "concert",0,0,500,500);
+     let tx1= await dContract.buyTicket(1001);
     console.log(tx1);
   
   
