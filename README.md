@@ -1,4 +1,4 @@
-#Secure Pass
+# Secure Pass
 
 ## Description:
 SecurePass is an innovative prototype for a blockchain RFID-based ticketing system, designed to address key challenges in traditional event management. Leveraging cutting-edge technologies, this project introduces a seamless and secure process for event organizers and attendees alike.
