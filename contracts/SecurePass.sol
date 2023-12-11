@@ -58,6 +58,17 @@ contract SecurePass {
         uint _ticketPrice,
         uint _ticketCount
     ) external {
+        require(
+            _eventDate > block.timestamp,
+            "Event date must be in the future"
+        );
+        require(_ticketCount > 0, "Ticket count must be greater than 0");
+        require(_ticketPrice > 0, "Ticket price must be greater than 0");
+
+        // fix this-----------------------------requiresssss
+
+
+
         eventCounter++;
         events[eventCounter] = Event(
             eventCounter,
