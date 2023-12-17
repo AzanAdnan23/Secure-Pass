@@ -38,7 +38,6 @@ contract SecurePass {
         uint256 eventId;
         string eventName;
         uint eventDate;
-        uint eventTime;
         uint ticketPrice;
         uint ticketCount;
         uint256 ticketSold;
@@ -50,12 +49,14 @@ contract SecurePass {
     mapping(uint256 => Ticket) public tickets;
     mapping(address => User) public users;
 
+    mapping(address => uint256[]) public organizerEvents;
+
     // create event
     function createEvent(
         string memory _eventName,
-        uint _eventDate,
-        uint _eventTime,
-        uint _ticketPrice,
+        uint _eventDate, // return event id and display it on the frontend               // merge date and time into one variable
+        uint _ticketPrice, // add event location
+        // optional: you have to send some money for event registration to prevent scams
         uint _ticketCount
     ) external {
         require(
@@ -67,26 +68,37 @@ contract SecurePass {
 
         // fix this-----------------------------requiresssss
 
-
-
         eventCounter++;
         events[eventCounter] = Event(
             eventCounter,
             _eventName,
             _eventDate,
-            _eventTime,
             _ticketPrice,
             _ticketCount,
             0,
             msg.sender,
             true
         );
+
+        organizerEvents[msg.sender].push(eventCounter);
     }
 
     // remove event
     function removeEvent(
         uint256 _eventId
     ) external onlyEventOrganizer(_eventId) {
+        // Get the list of event IDs of the organizer
+        uint256[] storage eventIds = organizerEvents[msg.sender];
+
+        // Find the index of the event ID to be removed
+        for (uint i = 0; i < eventIds.length; i++) {
+            if (eventIds[i] == _eventId) {
+                // Remove the event ID from the organizerEvents mapping
+                eventIds[i] = eventIds[eventIds.length - 1];
+                eventIds.pop();
+                break;
+            }
+        }
         delete events[_eventId];
     }
 
@@ -107,13 +119,6 @@ contract SecurePass {
             "Event date must be in the future"
         );
         events[_eventId].eventDate = _eventDate;
-    }
-
-    function updateEventTime(
-        uint256 _eventId,
-        uint _eventTime
-    ) external onlyEventOrganizer(_eventId) {
-        events[_eventId].eventTime = _eventTime;
     }
 
     function updateTicketPrice(
@@ -225,6 +230,12 @@ contract SecurePass {
             "User does not exist"
         );
         return users[_userAddress];
+    }
+
+    function getEventIdsOfAUser(
+        address organizer
+    ) public view returns (uint256[] memory) {
+        return organizerEvents[organizer];
     }
 
     // get event details

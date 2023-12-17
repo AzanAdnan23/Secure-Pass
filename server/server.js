@@ -9,7 +9,7 @@ const port = 3000;
 const provider = new ethers.providers.JsonRpcProvider('https://rpc-evm-sidechain.xrpl.org');
 
 const securePass = new ethers.Contract(
-  "0x4B27594c93f059EE395205f9197440b281e02107",
+  "0x550CCfAf6efe1810cC2630Bf452dCA4475789Fe0",
   SecurePass.abi,
   provider
 );
