@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 
-import CreateEvent from "../components/EventComponents/createEvent";
+import CreateEvent from "../components/EventComponents/CreateEvent";
 import RemoveEvent from "../components/EventComponents/RemoveEvent";
 import UpdateEvent from "../components/EventComponents/UpdateEvent";
 import PaymentWithdrawal from "../components/EventComponents/PaymentWithdrawal";
