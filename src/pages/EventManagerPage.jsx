@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 
-import CreateEvent from "../components/Event-components/createEvent";
-import RemoveEvent from "../components/Event-components/RemoveEvent";
-import UpdateEvent from "../components/Event-components/UpdateEvent";
-import PaymentWithdrawal from "../components/Event-components/PaymentWithdrawal";
-import EventDetails from "../components/Event-components/EventDetails";
+import CreateEvent from "../components/EventComponents/createEvent";
+import RemoveEvent from "../components/EventComponents/RemoveEvent";
+import UpdateEvent from "../components/EventComponents/UpdateEvent";
+import PaymentWithdrawal from "../components/EventComponents/PaymentWithdrawal";
+import EventDetails from "../components/EventComponents/EventDetails";
 
 import SecurePass from "/src/artifacts/contracts/SecurePass.sol/SecurePass";
 

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import BuyTicket from "../components/Tickets components/BuyTicket";
+import BuyTicket from "../components/TicketsComponents/BuyTicket";
 
 import SecurePass from "/src/artifacts/contracts/SecurePass.sol/SecurePass";
-import UserDetails from "../components/Tickets components/UserDetails";
+import UserDetails from "../components/TicketsComponents/UserDetails";
 
 const TicketsPage = () => {
   const [securePassSignerInstance, setSecurePassSignerInstance] =
