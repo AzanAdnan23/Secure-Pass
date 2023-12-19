@@ -1,4 +1,4 @@
-import Homepage from "./pages/homepage";
+import Homepage from "./pages/Homepage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import EventManagerPage from "./pages/EventManagerPage";
