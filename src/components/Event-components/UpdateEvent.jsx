@@ -88,8 +88,8 @@ function UpdateEvent({ securePassInstance }) {    // fix update function also ne
         type="text"
         className=" bg-gray-200 border-2 rounded-md px-2 py-1"
         placeholder="Event Id"
-        value={eventName}
-        onChange={handleEventNameChange}
+        value={eventName} // fix this
+        onChange={handleEventNameChange} //fix this
       />
 
       <p className="font-bold py-2"> Event Name: </p>
@@ -100,8 +100,7 @@ function UpdateEvent({ securePassInstance }) {    // fix update function also ne
         value={eventName}
         onChange={handleEventNameChange}
       />
-      <button  className="ml-12 font-semibold px-4 py-2 bg-teal-400 text-white rounded-md hover:bg-teal-600" onClick={handleUpdateEventName}>Update Event Name</button>
-
+      <button  className="ml-12 font-semibold px-4 py-1.5 bg-teal-400 text-white rounded-md hover:bg-teal-600" onClick={handleUpdateEventName}>Update Event Name</button>
       <p className="font-bold py-2"> Event Date </p>
       <input
         type="date"
@@ -119,7 +118,7 @@ function UpdateEvent({ securePassInstance }) {    // fix update function also ne
         value={eventTime}
         onChange={handleEventTimeChange}
       />
-      <button  className="ml-28 font-semibold px-4 py-2 bg-teal-400 text-white rounded-md hover:bg-teal-600" onClick={handleUpdateEventDate}>Update Event Date & Time</button>
+      <button  className="ml-28 font-semibold px-4 py-1.5 bg-teal-400 text-white rounded-md hover:bg-teal-600" onClick={handleUpdateEventDate}>Update Event Date & Time</button>
 
       <p className="font-bold py-2">Event Ticket Price:</p>
       <input
@@ -129,7 +128,7 @@ function UpdateEvent({ securePassInstance }) {    // fix update function also ne
         value={eventTicketPrice}
         onChange={handleEventTicketPriceChange}
       />
-      <button  className="ml-10 font-semibold px-4 py-2 bg-teal-400 text-white rounded-md hover:bg-teal-600" onClick={handleUpdateEventTicketPrice}>
+      <button  className="ml-10 font-semibold px-4 py-1.5 bg-teal-400 text-white rounded-md hover:bg-teal-600" onClick={handleUpdateEventTicketPrice}>
         Update Event Ticket Price
       </button>
 
@@ -141,7 +140,7 @@ function UpdateEvent({ securePassInstance }) {    // fix update function also ne
         value={eventTicketCount}
         onChange={handleEventTicketCountChange}
       />
-      <button  className="ml-10 font-semibold px-4 py-2 bg-teal-400 text-white rounded-md hover:bg-teal-600" onClick={handleUpdateEventTicketCount}>
+      <button  className="ml-10 font-semibold px-4 py-1.5 bg-teal-400 text-white rounded-md hover:bg-teal-600" onClick={handleUpdateEventTicketCount}>
         Update Event Ticket Count
       </button>
     </div>

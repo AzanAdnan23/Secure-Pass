@@ -33,7 +33,7 @@ function RemoveEvent({ securePassInstance }) {
         onChange={handleEventIdChange}
       />
 
-      <button className="font-semibold my-4 mx-6 px-4 py-2 bg-teal-400 text-white rounded-md hover:bg-teal-600" onClick={handleRemoveEvent}>Remove Event</button>
+      <button className="font-semibold my-4 mx-6 px-4 py-1.5 bg-teal-400 text-white rounded-md hover:bg-teal-600" onClick={handleRemoveEvent}>Remove Event</button>
     </div>
   );
 }

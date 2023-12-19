@@ -31,7 +31,7 @@ function PaymentWithdrawal({ securePassInstance }) {
         onChange={handleEventIdChange}
       />
       <p className="mt-6 font-bold"> Note: you can't withdraw payments until the event is over</p>
-      <button className="font-semibold my-2 px-4 py-2 bg-teal-400 text-white rounded-md hover:bg-teal-600" onClick={handleWithdrawPayment}> Withdraw Payments</button>
+      <button className="font-semibold my-2 px-4 py-1.5 bg-teal-400 text-white rounded-md hover:bg-teal-600" onClick={handleWithdrawPayment}> Withdraw Payments</button>
     </div>
   );
 }

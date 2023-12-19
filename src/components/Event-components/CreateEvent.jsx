@@ -95,7 +95,7 @@ function CreateEvent({ securePassInstance }) {
       />
       <div></div>
       <button
-        className="font-semibold my-4 px-4 py-2 bg-teal-400 text-white rounded-md hover:bg-teal-600"
+        className="font-semibold my-4 px-4 py-1.5 bg-teal-400 text-white rounded-md hover:bg-teal-600"
         onClick={handleCreateEvent}
       >
         Create Event

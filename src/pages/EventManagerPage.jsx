@@ -54,7 +54,7 @@ const EventManagerPage = () => {
       <br />
       <h3 className="mx-10 font-bold text-xl "> Edit Event Details </h3>
 
-      <button  className="mx-10 font-semibold my-4 px-2 py-2 bg-teal-400 text-white rounded-md hover:bg-teal-600" onClick={() => setShowUpdateEvent(!showUpdateEvent)}>
+      <button  className="mx-10 font-semibold my-4 px-2 py-1.5 bg-teal-400 text-white rounded-md hover:bg-teal-600" onClick={() => setShowUpdateEvent(!showUpdateEvent)}>
         Edit Event Details
       </button>
       {showUpdateEvent && (
