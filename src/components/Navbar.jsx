@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ConnectWallet from "./ConnectWallet";
 
 const NavBar = () => (
-  <nav className="bg-black text-white p-6  font-bold font-sans">
+  <nav className="bg-white text-black p-6  font-bold font-sans">
     <ul className="flex space-x-4 justify-between items-center">
       <li>
         <Link to="/">Home Page</Link>

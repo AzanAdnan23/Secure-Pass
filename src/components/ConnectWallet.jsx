@@ -83,7 +83,7 @@ const ConnectWallet = () => {
   }, []);
 
   return (
-    <div className="font-semibold px-4 py-2 bg-purple-700 text-white rounded-md hover:bg-purple-800">
+    <div className="font-semibold px-4 py-2 bg-teal-400 text-white rounded-md hover:bg-teal-600">
       <button onClick={connectWalletHandler}>{connButtonText}</button>
     </div>
   );

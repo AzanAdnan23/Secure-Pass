@@ -39,22 +39,28 @@ const EventManagerPage = () => {
 
   return (
     <div>
-      <h1>EventManager</h1>
-      <p>event page</p>
+      <h1 className="text-center font-bold text-2xl mt-8">Event Manager Dashboard</h1>
+      <p className="text-center font-semibold mt-2">Seamless Control, Effortless Organization</p>
+      <br />
 
       <EventDetails
         userAddress={userAddress}
-        securePassInstance={securePassInstance}
+        //  securePassInstance={securePassInstance}
       />
+      <br />
       <CreateEvent securePassInstance={securePassInstance} />
+      <br />
       <RemoveEvent securePassInstance={securePassInstance} />
       <br />
-      <button onClick={() => setShowUpdateEvent(!showUpdateEvent)}>
+      <h3 className="mx-10 font-bold text-xl "> Edit Event Details </h3>
+
+      <button  className="mx-10 font-semibold my-4 px-2 py-2 bg-teal-400 text-white rounded-md hover:bg-teal-600" onClick={() => setShowUpdateEvent(!showUpdateEvent)}>
         Edit Event Details
       </button>
       {showUpdateEvent && (
         <UpdateEvent securePassInstance={securePassInstance} />
       )}
+      <br />  
       <PaymentWithdrawal securePassInstance={securePassInstance} />
     </div>
   );

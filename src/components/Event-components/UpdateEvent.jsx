@@ -81,54 +81,67 @@ function UpdateEvent({ securePassInstance }) {    // fix update function also ne
   };
 
   return (
-    <div>
-      <h3> Edit Event Details </h3>
-
-      <p> Event Name: </p>
+    <div className="px-10">
+      <p className="font-bold"> Enter Event Id to change Any of the Following.</p>
+      <p className="font-bold py-2"> Event Id: </p>
       <input
         type="text"
+        className=" bg-gray-200 border-2 rounded-md px-2 py-1"
+        placeholder="Event Id"
+        value={eventName}
+        onChange={handleEventNameChange}
+      />
+
+      <p className="font-bold py-2"> Event Name: </p>
+      <input
+        type="text"
+        className=" bg-gray-200 border-2 rounded-md px-2 py-1"
         placeholder="Event Name"
         value={eventName}
         onChange={handleEventNameChange}
       />
-      <button onClick={handleUpdateEventName}>Update Event Name</button>
+      <button  className="ml-12 font-semibold px-4 py-2 bg-teal-400 text-white rounded-md hover:bg-teal-600" onClick={handleUpdateEventName}>Update Event Name</button>
 
-      <p> Event Date </p>
+      <p className="font-bold py-2"> Event Date </p>
       <input
         type="date"
+        className=" bg-gray-200 border-2 rounded-md px-2 py-1"
         placeholder="Event Date"
         value={eventDate}
         onChange={handleEventDateChange}
       />
 
-      <p>Event Time:</p>
+      <p className="font-bold py-2">Event Time:</p>
       <input
         type="time"
+        className=" bg-gray-200 border-2 rounded-md px-2 py-1"
         placeholder="Event Time"
         value={eventTime}
         onChange={handleEventTimeChange}
       />
-      <button onClick={handleUpdateEventDate}>Update Event Date & Time</button>
+      <button  className="ml-28 font-semibold px-4 py-2 bg-teal-400 text-white rounded-md hover:bg-teal-600" onClick={handleUpdateEventDate}>Update Event Date & Time</button>
 
-      <p>Event Ticket Price:</p>
+      <p className="font-bold py-2">Event Ticket Price:</p>
       <input
         type="number"
+        className=" bg-gray-200 border-2 rounded-md px-2 py-1"
         placeholder="Event Ticket Price"
         value={eventTicketPrice}
         onChange={handleEventTicketPriceChange}
       />
-      <button onClick={handleUpdateEventTicketPrice}>
+      <button  className="ml-10 font-semibold px-4 py-2 bg-teal-400 text-white rounded-md hover:bg-teal-600" onClick={handleUpdateEventTicketPrice}>
         Update Event Ticket Price
       </button>
 
-      <p>Event Ticket Count:</p>
+      <p className="font-bold py-2">Event Ticket Count:</p>
       <input
         type="number"
+        className=" bg-gray-200 border-2 rounded-md px-2 py-1"
         placeholder="Event Ticket Count"
         value={eventTicketCount}
         onChange={handleEventTicketCountChange}
       />
-      <button onClick={handleUpdateEventTicketCount}>
+      <button  className="ml-10 font-semibold px-4 py-2 bg-teal-400 text-white rounded-md hover:bg-teal-600" onClick={handleUpdateEventTicketCount}>
         Update Event Ticket Count
       </button>
     </div>

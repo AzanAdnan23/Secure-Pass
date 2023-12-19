@@ -2,7 +2,7 @@ import React from "react";
 
 const Homepage = () => {
   return (
-    <div>
+    <div className="mb-32">
       <h1 className="text-center text-5xl font-extrabold font-sans m-6 pt-64">
         {" "}
         Secure Pass

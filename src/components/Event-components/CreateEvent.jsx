@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function CreateEvent  ({ securePassInstance }) {
+function CreateEvent({ securePassInstance }) {
   const [eventName, setEventName] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [eventTime, setEventTime] = useState("");
@@ -47,52 +47,61 @@ function CreateEvent  ({ securePassInstance }) {
   };
 
   return (
-    <div>
-      <h3>Create Event</h3>
+    <div className="px-10">
+      <h3 className="font-bold text-xl mb-4">Create New Event:</h3>
 
-      <p>Event Name: </p>
+      <p className="font-bold py-2">Event Name: </p>
       <input
         type="text"
+        className=" bg-gray-200 border-2 rounded-md px-2 py-1"
         placeholder="Event Name"
         value={eventName}
         onChange={handleEventNameChange}
       />
 
-      <p> Event Date </p>
+      <p className="font-bold py-2"> Event Date </p>
       <input
         type="date"
+        className=" bg-gray-200 border-2 rounded-md px-2 py-1"
         placeholder="Event Date"
         value={eventDate}
         onChange={handleEventDateChange}
       />
 
-      <p>Event Time:</p>
+      <p className="font-bold py-2">Event Time:</p>
       <input
         type="time"
-        placeholder="05:00 PM" // fix this
+        className=" bg-gray-200 border-2 rounded-md px-2 py-1"
         value={eventTime}
         onChange={handleEventTimeChange}
       />
 
-      <p>Event Ticket Price:</p>
+      <p className="font-bold py-2">Event Ticket Price:</p>
       <input
         type="number"
+        className=" bg-gray-200 border-2 rounded-md px-2 py-1 "
         placeholder="Event Ticket Price"
         value={eventTicketPrice}
         onChange={handleEventTicketPriceChange}
       />
 
-      <p>Event Ticket Count:</p>
+      <p className="font-bold py-2">Event Ticket Count:</p>
       <input
         type="number"
+        className=" bg-gray-200 border-2 rounded-md px-2 py-1 "
         placeholder="Event Ticket Count"
         value={eventTicketCount}
         onChange={handleEventTicketCountChange}
       />
-
-      <button onClick={handleCreateEvent}>Create Event</button>
+      <div></div>
+      <button
+        className="font-semibold my-4 px-4 py-2 bg-teal-400 text-white rounded-md hover:bg-teal-600"
+        onClick={handleCreateEvent}
+      >
+        Create Event
+      </button>
     </div>
   );
-};
+}
 
 export default CreateEvent;

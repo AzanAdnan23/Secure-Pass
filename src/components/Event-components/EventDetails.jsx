@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import SecurePass from "../../artifacts/contracts/SecurePass.sol/SecurePass.json";
+import SecurePass from "../../artifacts/contracts/SecurePass.sol/SecurePass";
 
 function EventDetails({ userAddress }) {
   const [eventIds, setEventIds] = useState([]);
@@ -9,30 +9,34 @@ function EventDetails({ userAddress }) {
 
   useEffect(() => {
     const initContract = async () => {
-      try {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+      if (userAddress) {
+        try {
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-        const securePass = new ethers.Contract(
-          "0x550CCfAf6efe1810cC2630Bf452dCA4475789Fe0",
-          SecurePass.abi,
-          provider
-        );
-        setSecurePassInstance(securePass);
+          const securePass = new ethers.Contract(
+            "0x550CCfAf6efe1810cC2630Bf452dCA4475789Fe0",
+            SecurePass.abi,
+            provider
+          );
+          setSecurePassInstance(securePass);
 
-        const tx = await securePass.getEventIdsOfAUser(userAddress); // returns array of event ids
-        setEventIds(tx);
-        console.log("event details use effect called");
-      } catch (error) {
-        console.error("Error initializing contract:", error);
+          const tx = await securePass.getEventIdsOfAUser(userAddress); // returns array of event ids
+          setEventIds(tx);
+          console.log("event details use effect called");
+        } catch (error) {
+          console.error("Error initializing contract:", error);
+        }
       }
     };
 
     initContract();
-  }, []); // Empty dependency array ensures it runs once on mount
+  }, [userAddress]); // Empty dependency array ensures it runs once on mount
 
   useEffect(() => {
     const fetchEventDetails = async () => {
-      const eventDetails = await Promise.all(eventIds.map(id => securePassInstance.getEventDetails(id)));
+      const eventDetails = await Promise.all(
+        eventIds.map((id) => securePassInstance.getEventDetails(id))
+      );
       setEvents(eventDetails);
     };
 
@@ -42,23 +46,44 @@ function EventDetails({ userAddress }) {
   }, [securePassInstance, eventIds]);
 
   return (
-    <div>
-      <h2>Event Details</h2>
-      {events.map((event, index) => (
+    <div className="p-10">
+  <h2 className="font-bold text-xl">Event Details:</h2>
+  {events.map(
+    (event, index) =>
+      event && (
         <div key={index}>
-          <p>Event Id: {event.eventId}</p>
-          <p>Event Name: {event.eventName}</p>
-          <p>Event Date: {event.eventDate}</p>
-          <p>Event Time: {event.eventTime}</p>
-          <p>Ticket Price: {event.ticketPrice}</p>
-          <p>Ticket Count: {event.ticketCount}</p>
-          <p>Tickets Sold: {event.ticketSold}</p>
-          <p>Tickets Remaining: {event.ticketsRemaining}</p>
-          <p>Event Status: {event.eventStatus}</p>
+          <br />
+          <p>
+            <span className="font-bold">Event Id:</span> {event.eventId && event.eventId.toString()}
+          </p>
+          <p>
+            <span className="font-bold">Event Name:</span> {event.eventName}
+          </p>
+          <p>
+            <span className="font-bold">Event Date:</span>{" "}
+            {event.eventDate && formatTimestamp(event.eventDate)}
+          </p>
+          <p>
+            <span className="font-bold">Ticket Price:</span>{" "}
+            {event.ticketPrice && event.ticketPrice.toString()}
+          </p>
+          <p>
+            <span className="font-bold">Ticket Count:</span>{" "}
+            {event.ticketCount && event.ticketCount.toString()}
+          </p>
+          <p>
+            <span className="font-bold">Tickets Sold:</span>{" "}
+            {event.ticketSold && event.ticketSold.toString()}
+          </p>
         </div>
-      ))}
-    </div>
+      )
+  )}
+</div>
+
   );
 }
-
+const formatTimestamp = (timestamp) => {
+  const date = new Date(timestamp * 1000); // Multiply by 1000 to convert to milliseconds
+  return date.toLocaleString(); // Adjust the format as needed
+};
 export default EventDetails;
