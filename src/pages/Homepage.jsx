@@ -18,8 +18,8 @@ const Homepage = () => {
       </p>
 
       <br />
-      <div className="font-sans mt-60 px-60">
-        <h3 className="text-2xl mt-8 font-bold">What is it?</h3>
+      <div className="font-sans mt-32 px-60">
+        <h3 className="text-2xl mt-8 mb-4 font-bold">What is it?</h3>
         <p>
           SecurePass is a cutting-edge blockchain RFID-based ticketing system.
           It redefines how events are organized, ensuring security,
@@ -27,7 +27,7 @@ const Homepage = () => {
         </p>
         <br />
 
-        <h3 className="text-2xl mt-8 font-bold">
+        <h3 className="text-2xl mt-12 mb-4 font-bold">
           Effortless Event Management and Simplified Ticket Purchasing
         </h3>
         <p>
@@ -38,7 +38,7 @@ const Homepage = () => {
         </p>
         <br />
 
-        <h3 className="text-2xl mt-8 font-bold">Ensuring Ticket Legitimacy</h3>
+        <h3 className="text-2xl mt-12 mb-4 font-bold">Ensuring Ticket Legitimacy</h3>
         <p>
           SecurePass employs advanced blockchain technology and RFID integration
           to guarantee the legitimacy of every ticket. Our system showcases the
@@ -47,8 +47,8 @@ const Homepage = () => {
 
         <br />
 
-        <h3 className="text-2xl mt-8 font-bold">Join SecurePass Today</h3>
-        <p>
+        <h3 className="text-2xl mt-12 mb-4 font-bold">Join SecurePass Today</h3>
+        <p className="mb-48">
           SecurePass is the future of event ticketing. Join us today and
           experience a new era in event management.
         </p>

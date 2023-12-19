@@ -87,6 +87,11 @@ contract SecurePass {
     function removeEvent(
         uint256 _eventId
     ) external onlyEventOrganizer(_eventId) {
+        require(
+            events[_eventId].ticketSold == 0,
+            "Tickets have already been sold"
+        );
+        require(events[_eventId].isValid, "Event is not valid");
         // Get the list of event IDs of the organizer
         uint256[] storage eventIds = organizerEvents[msg.sender];
 
@@ -184,6 +189,15 @@ contract SecurePass {
         require(events[_eventId].ticketCount > 0, "No more tickets available");
         require(events[_eventId].isValid, "Event is not valid");
 
+        // Check if the user already bought a ticket for this event
+        for (uint256 i = 0; i < users[msg.sender].ticketsArray.length; i++) {
+            if (
+                tickets[users[msg.sender].ticketsArray[i]].eventId == _eventId
+            ) {
+                revert("Ticket already bought");
+            }
+        }
+
         uint256 ticketPrice = events[_eventId].ticketPrice;
 
         if (!users[msg.sender].hasRFIDCard) {
@@ -260,22 +274,10 @@ contract SecurePass {
     // get all events
     function getAllEvents() external view returns (Event[] memory) {
         Event[] memory _events = new Event[](eventCounter);
-        for (uint256 i = 0; i < eventCounter; i++) {
+        for (uint256 i = 1001; i < eventCounter; i++) {
             _events[i] = events[i + 1];
         }
         return _events;
-    }
-
-    // get all tickets of a user
-    function getAllTicketsOfUser(
-        address _userAddress
-    ) external view returns (Ticket[] memory) {
-        uint256[] memory _tickets = users[_userAddress].ticketsArray;
-        Ticket[] memory ticketsOfUser = new Ticket[](_tickets.length);
-        for (uint256 i = 0; i < _tickets.length; i++) {
-            ticketsOfUser[i] = tickets[_tickets[i]];
-        }
-        return ticketsOfUser;
     }
 
     function isNewuser(address user) external view returns (bool) {

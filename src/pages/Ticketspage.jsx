@@ -25,7 +25,7 @@ const TicketsPage = () => {
         const signer = provider.getSigner();
 
         const securePass = new ethers.Contract(
-          "0xaD2270735faF82484621fBd528Bf2445106CA445",
+          "0x0d85e584217b9e11c1006d984D5895B3E6185EEf",
           SecurePass.abi,
           signer
         );
@@ -49,7 +49,7 @@ const TicketsPage = () => {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
 
         const securePass = new ethers.Contract(
-          "0xaD2270735faF82484621fBd528Bf2445106CA445",
+          "0x0d85e584217b9e11c1006d984D5895B3E6185EEf",
           SecurePass.abi,
           provider
         );
