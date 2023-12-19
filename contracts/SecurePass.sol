@@ -277,6 +277,7 @@ contract SecurePass {
         }
         return ticketsOfUser;
     }
+
     function isNewuser(address user) external view returns (bool) {
         return !users[user].hasRFIDCard;
     }

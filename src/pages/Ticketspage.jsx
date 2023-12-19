@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 import BuyTicket from "../components/Tickets components/BuyTicket";
 
 import SecurePass from "/src/artifacts/contracts/SecurePass.sol/SecurePass";
+import UserDetails from "../components/Tickets components/UserDetails";
 
 const TicketsPage = () => {
   const [securePassSignerInstance, setSecurePassSignerInstance] =
@@ -20,6 +21,7 @@ const TicketsPage = () => {
         const accounts = await provider.send("eth_requestAccounts", []);
 
         setUserAddress(accounts[0]);
+
         const signer = provider.getSigner();
 
         const securePass = new ethers.Contract(
@@ -67,7 +69,6 @@ const TicketsPage = () => {
     }
   }, [securePassProviderInstance, userAddress]);
 
-
   async function isUserNew() {
     try {
       const user = await securePassProviderInstance.isNewuser(userAddress);
@@ -77,14 +78,20 @@ const TicketsPage = () => {
       console.error("Error in isNewUser:", error);
     }
   }
-  
+
   return (
     <div className="mb-60">
       <h1 className="text-center font-bold text-2xl mt-8">Tickets Page</h1>
       <p className="text-center font-semibold mt-2">
         Your Gateway to Event Exploration and Ticket Management
       </p>
-      <BuyTicket securePassSignerInstance={securePassSignerInstance} isNewUser={isNewUser} />
+      {securePassProviderInstance && userAddress && (
+        <UserDetails userAddress={userAddress} isNewUser={isNewUser} />
+      )}
+      <BuyTicket
+        securePassSignerInstance={securePassSignerInstance}
+        isNewUser={isNewUser}
+      />
     </div>
   );
 };

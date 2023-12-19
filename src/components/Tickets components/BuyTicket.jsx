@@ -15,7 +15,7 @@ function BuyTicket({ securePassSignerInstance, isNewUser }) {
       console.log("Ticket Price Converted", convertedPrice);
 
       const tx = await securePassSignerInstance.buyTicket(eventId, {
-        value: convertedPrice
+        value: convertedPrice,
       });
       await tx.wait();
 
