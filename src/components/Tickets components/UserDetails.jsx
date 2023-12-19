@@ -122,9 +122,6 @@ function UserDetails({ userAddress, isNewUser }) {
                   <span className="font-bold">Event ID:</span> {eventIds[index]}
                 </p>
                 <p>
-                  <span className="font-bold">Buyer:</span> {buyers[index]}
-                </p>
-                <p>
                   <span className="font-bold">Valid:</span>{" "}
                   {isValidTickets[index] ? "Yes" : "No"}
                 </p>

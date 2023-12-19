@@ -14,6 +14,18 @@ const ConnectWallet = () => {
       if (provider) {
         if (provider !== window.ethereum) {
           console.error("Do you have multiple wallets installed?");
+        } else {
+          // MetaMask is installed and the provider is detected
+          const accounts = await window.ethereum.request({
+            method: "eth_accounts",
+          });
+
+          if (accounts.length > 0) {
+            // Wallet is connected
+            setDefaultAccount(accounts[0]);
+            setConnButtonText("Wallet Connected");
+            getAccountBalance(accounts[0]);
+          }
         }
       } else {
         setConnButtonText("Install MetaMask");
@@ -30,10 +42,10 @@ const ConnectWallet = () => {
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
-        accountChangedHandler(accounts[0]);
+        const newAccount = accounts[0];
+        accountChangedHandler(newAccount);
         setConnButtonText("Wallet Connected");
-        getAccountBalance(accounts[0]);
-        onConnect();
+        getAccountBalance(newAccount);
       } catch (error) {
         setErrorMessage(error.message);
       }
@@ -62,22 +74,28 @@ const ConnectWallet = () => {
 
   useEffect(() => {
     if (window.ethereum) {
-      window.ethereum.on("accountsChanged", (accounts) => {
-        accountChangedHandler(accounts[0]);
-        window.location.reload();
-      });
+      const handleAccountsChanged = (accounts) => {
+        if (accounts.length > 0) {
+          accountChangedHandler(accounts[0]);
+        } else {
+          // Wallet disconnected
+          setDefaultAccount(null);
+          setConnButtonText("Connect Wallet");
+        }
+      };
 
-      window.ethereum.on("chainChanged", () => {
+      const handleChainChanged = (chainId) => {
+        setDefaultAccount(null);
+        setConnButtonText("Connect Wallet");
         window.location.reload();
-      });
+      };
+
+      window.ethereum.on("accountsChanged", handleAccountsChanged);
+      window.ethereum.on("chainChanged", handleChainChanged);
 
       return () => {
-        if (window.ethereum.removeListener) {
-          window.ethereum.removeListener(
-            "accountsChanged",
-            accountChangedHandler
-          );
-        }
+        window.ethereum.removeListener("accountsChanged", handleAccountsChanged);
+        window.ethereum.removeListener("chainChanged", handleChainChanged);
       };
     }
   }, []);
