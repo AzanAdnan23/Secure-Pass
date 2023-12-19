@@ -192,7 +192,7 @@ contract SecurePass {
         }
 
         // Ensure sent ether matches the total ticket price
-        require(msg.value == ticketPrice, "Incorrect amount sent");
+        require(msg.value >= ticketPrice, "Incorrect amount sent");
 
         // Deduct ticket count and update user details
         ticketCounter++;
@@ -276,6 +276,9 @@ contract SecurePass {
             ticketsOfUser[i] = tickets[_tickets[i]];
         }
         return ticketsOfUser;
+    }
+    function isNewuser(address user) external view returns (bool) {
+        return !users[user].hasRFIDCard;
     }
 
     //is ticket valid from user

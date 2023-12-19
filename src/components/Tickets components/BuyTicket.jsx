@@ -3,14 +3,19 @@ import { ethers } from "ethers";
 
 import SecurePass from "/src/artifacts/contracts/SecurePass.sol/SecurePass";
 
-function BuyTicket({ securePassSignerInstance }) {
+function BuyTicket({ securePassSignerInstance, isNewUser }) {
   const [eventId, setEventId] = useState("");
 
   const handleBuyTicket = async () => {
     try {
       const ticketPrice = await calculateTicketPrice(eventId);
+      console.log("Ticket Price Calculated", ticketPrice);
+
+      const convertedPrice = ethers.utils.parseEther(ticketPrice);
+      console.log("Ticket Price Converted", convertedPrice);
+
       const tx = await securePassSignerInstance.buyTicket(eventId, {
-        value: ethers.utils.parseEther(ticketPrice),
+        value: convertedPrice
       });
       await tx.wait();
 
@@ -22,18 +27,22 @@ function BuyTicket({ securePassSignerInstance }) {
 
   async function calculateTicketPrice(eventId) {
     try {
+      let addOns = 0;
+      console.log("isNewUser", isNewUser);
+      if (isNewUser === true) {
+        addOns = 10;
+      }
       const provider = new ethers.providers.Web3Provider(window.ethereum);
 
       const securePass = new ethers.Contract(
-        "0x550CCfAf6efe1810cC2630Bf452dCA4475789Fe0",
+        "0xaD2270735faF82484621fBd528Bf2445106CA445",
         SecurePass.abi,
         provider
       );
-      const tx = await securePass.getEventDetails(eventId);
-      await tx.wait();
+      const eventDetails = await securePass.getEventDetails(eventId);
 
-      let ticketPrice = tx.ticketPrice.toString();
-      console.log("Ticket Price Calculated", ticketPrice);
+      // Convert both values to numbers and then add
+      let ticketPrice = (Number(eventDetails.ticketPrice) + addOns).toString();
 
       return ticketPrice;
     } catch (error) {

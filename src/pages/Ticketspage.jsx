@@ -11,6 +11,7 @@ const TicketsPage = () => {
     useState(null);
 
   const [userAddress, setUserAddress] = useState("");
+  const [isNewUser, setIsNewUser] = useState(false);
 
   useEffect(() => {
     const initSignerContract = async () => {
@@ -22,7 +23,7 @@ const TicketsPage = () => {
         const signer = provider.getSigner();
 
         const securePass = new ethers.Contract(
-          "0x550CCfAf6efe1810cC2630Bf452dCA4475789Fe0",
+          "0xaD2270735faF82484621fBd528Bf2445106CA445",
           SecurePass.abi,
           signer
         );
@@ -46,7 +47,7 @@ const TicketsPage = () => {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
 
         const securePass = new ethers.Contract(
-          "0x550CCfAf6efe1810cC2630Bf452dCA4475789Fe0",
+          "0xaD2270735faF82484621fBd528Bf2445106CA445",
           SecurePass.abi,
           provider
         );
@@ -60,13 +61,30 @@ const TicketsPage = () => {
     initProviderContract();
   }, []); // Empty dependency array ensures it runs once on mount
 
+  useEffect(() => {
+    if (securePassProviderInstance && userAddress) {
+      isUserNew();
+    }
+  }, [securePassProviderInstance, userAddress]);
+
+
+  async function isUserNew() {
+    try {
+      const user = await securePassProviderInstance.isNewuser(userAddress);
+      console.log("Is New User:", user);
+      setIsNewUser(user);
+    } catch (error) {
+      console.error("Error in isNewUser:", error);
+    }
+  }
+  
   return (
     <div className="mb-60">
       <h1 className="text-center font-bold text-2xl mt-8">Tickets Page</h1>
       <p className="text-center font-semibold mt-2">
         Your Gateway to Event Exploration and Ticket Management
       </p>
-      <BuyTicket securePassSignerInstance={securePassSignerInstance} />
+      <BuyTicket securePassSignerInstance={securePassSignerInstance} isNewUser={isNewUser} />
     </div>
   );
 };
