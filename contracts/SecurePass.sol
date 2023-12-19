@@ -29,7 +29,7 @@ contract SecurePass {
     // these are the unique ids for each event, ticket, and user
     constructor() {
         owner = msg.sender;
-        eventCounter = 1000;
+        eventCounter = 1;
         ticketCounter = 1000;
         userCounter = 1000;
     }
@@ -272,13 +272,14 @@ contract SecurePass {
     }
 
     // get all events
-    function getAllEvents() external view returns (Event[] memory) {
+   function getAllEvents() external view returns (Event[] memory) {
         Event[] memory _events = new Event[](eventCounter);
-        for (uint256 i = 1001; i < eventCounter; i++) {
+        for (uint256 i = 1; i < eventCounter; i++) {
             _events[i] = events[i + 1];
         }
         return _events;
     }
+
 
     function isNewuser(address user) external view returns (bool) {
         return !users[user].hasRFIDCard;

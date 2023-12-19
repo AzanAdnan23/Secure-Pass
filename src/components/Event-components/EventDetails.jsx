@@ -14,7 +14,7 @@ function EventDetails({ userAddress }) {
           const provider = new ethers.providers.Web3Provider(window.ethereum);
 
           const securePass = new ethers.Contract(
-            "0x0d85e584217b9e11c1006d984D5895B3E6185EEf",
+            "0xfcf9d89556ff56D5106E29335245968eB7aC18e4",
             SecurePass.abi,
             provider
           );
