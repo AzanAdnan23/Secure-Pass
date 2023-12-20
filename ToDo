@@ -1,6 +1,6 @@
-fix connecct wallet
+
 fix update event details
-fix withdraw payment
+
 chnage valid ticket to unvalid ticket
 
 ## Event Dashboard
@@ -18,64 +18,3 @@ chnage valid ticket to unvalid ticket
 3.  Get Ticket Details
 4.  Get Ticket List of a user
 5. user details
-
-
-
-//////////////
-In your case, the easiest and most efficient approach would be to **combine the date and time into a single timestamp**. This way, you only need to manage one variable in your smart contract instead of two. 
-
-When you retrieve the timestamp from your smart contract, you can convert it back into a date and time for display on your webpage. JavaScript's `Date` object can handle this conversion for you.
-
-Here's how you can modify your code:
-
-```jsx
-import React, { useState } from "react";
-
-const CreateEvent = ({ securePassInstance }) => {
-  // ... existing state variables ...
-
-  const handleCreateEvent = async () => {
-    // Combine date and time into a single timestamp
-    const eventDateTime = new Date(`${eventDate}T${eventTime}`);
-    const eventTimestamp = Math.floor(eventDateTime.getTime() / 1000);
-
-    const tx = await securePassInstance.createEvent(
-      eventName,
-      eventTimestamp,
-      eventTicketPrice,
-      eventTicketCount
-    );
-    await tx.wait();
-    console.log("Event Created");
-  };
-
-  // ... existing JSX ...
-
-  <button onClick={handleCreateEvent}>Create Event</button>
-
-  // ... existing JSX ...
-};
-
-export default CreateEvent;
-```
-
-And in your smart contract, you would have:
-
-```solidity
-function createEvent(
-    string memory _eventName,
-    uint _eventDateTime,
-    uint _ticketPrice,
-    uint _ticketCount
-)
-```
-
-When you want to display the date and time on your webpage, you can convert the timestamp back into a date and time using JavaScript:
-
-```jsx
-const eventDateTime = new Date(eventTimestamp * 1000);
-const eventDate = eventDateTime.toISOString().split('T')[0]; // Gives date in 'YYYY-MM-DD' format
-const eventTime = eventDateTime.toTimeString().split(' ')[0]; // Gives time in 'HH:MM:SS' format
-```
-
-This approach simplifies the handling of date and time in your smart contract and makes it easier to manage. I hope this helps! If you have more questions, feel free to ask. 😊

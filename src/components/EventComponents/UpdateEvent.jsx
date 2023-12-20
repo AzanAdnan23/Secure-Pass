@@ -1,15 +1,17 @@
 import { useState } from "react";
 
 function UpdateEvent({ securePassInstance }) {    // fix update function also need to send event id
+  const [eventId, setEventId] = useState("");
   const [eventName, setEventName] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [eventTime, setEventTime] = useState("");
   const [eventTicketPrice, setEventTicketPrice] = useState("");
   const [eventTicketCount, setEventTicketCount] = useState("");
+  
 
   const handleUpdateEventName = async () => {
     try {
-      const tx = await securePassInstance.updateEventName(eventName);
+      const tx = await securePassInstance.updateEventName(eventId,eventName);
       await tx.wait();
 
       console.log("Event Name Updated");
@@ -23,7 +25,7 @@ function UpdateEvent({ securePassInstance }) {    // fix update function also ne
       const eventDateTime = new Date(`${eventDate}T${eventTime}`);
       const eventTimestamp = Math.floor(eventDateTime.getTime() / 1000);
 
-      const tx = await securePassInstance.updateEventDate(eventTimestamp);
+      const tx = await securePassInstance.updateEventDate(eventId,eventTimestamp);
       await tx.wait();
 
       console.log("Event Date Updated");
@@ -34,7 +36,7 @@ function UpdateEvent({ securePassInstance }) {    // fix update function also ne
 
   const handleUpdateEventTicketPrice = async () => {
     try {
-      const tx = await securePassInstance.updateTicketPrice(eventTicketPrice);
+      const tx = await securePassInstance.updateTicketPrice(eventId,eventTicketPrice);
       await tx.wait();
 
       console.log("Event Ticket Price Updated");
@@ -48,7 +50,7 @@ function UpdateEvent({ securePassInstance }) {    // fix update function also ne
 
   const handleUpdateEventTicketCount = async () => {
     try {
-      const tx = await securePassInstance.updateTicketCount(eventTicketCount);
+      const tx = await securePassInstance.updateTicketCount(eventId,eventTicketCount);
       await tx.wait();
 
       console.log("Event Ticket Count Updated");
@@ -58,6 +60,9 @@ function UpdateEvent({ securePassInstance }) {    // fix update function also ne
         error
       );
     }
+  };
+    const handleEventIdChange = (e) => {
+    setEventId(e.target.value);
   };
 
   const handleEventNameChange = (e) => {
@@ -88,8 +93,8 @@ function UpdateEvent({ securePassInstance }) {    // fix update function also ne
         type="text"
         className=" bg-gray-200 border-2 rounded-md px-2 py-1"
         placeholder="Event Id"
-        value={eventName} // fix this
-        onChange={handleEventNameChange} //fix this
+        value={eventId} 
+        onChange={handleEventIdChange} //fix this
       />
 
       <p className="font-bold py-2"> Event Name: </p>
