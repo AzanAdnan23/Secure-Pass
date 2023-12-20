@@ -24,7 +24,7 @@ const EventManagerPage = () => {
         const signer = provider.getSigner();
 
         const securePass = new ethers.Contract(
-          "0xfcf9d89556ff56D5106E29335245968eB7aC18e4",
+          "0xA4223a37a33BF51A2368A9621aD5d3ADa7A9365D",
           SecurePass.abi,
           signer
         );

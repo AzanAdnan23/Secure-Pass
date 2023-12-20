@@ -272,14 +272,13 @@ contract SecurePass {
     }
 
     // get all events
-   function getAllEvents() external view returns (Event[] memory) {
+    function getAllEvents() external view returns (Event[] memory) {
         Event[] memory _events = new Event[](eventCounter);
         for (uint256 i = 1; i < eventCounter; i++) {
             _events[i] = events[i + 1];
         }
         return _events;
     }
-
 
     function isNewuser(address user) external view returns (bool) {
         return !users[user].hasRFIDCard;
@@ -288,17 +287,19 @@ contract SecurePass {
     //is ticket valid from user
     function isTicketValid(
         uint256 _eventId,
-        uint256 _userID
+        address _userAddress
     ) external view returns (bool) {
-        for (uint256 i = 0; i < users[msg.sender].ticketsArray.length; i++) {
-            if (
-                users[msg.sender].ticketsArray[i] == _userID &&
-                tickets[_userID].eventId == _eventId
-            ) {
+        require(
+            users[_userAddress].userAddress == _userAddress,
+            "User does not exist"
+        );
+
+        for (uint256 i = 0; i < users[_userAddress].ticketsArray.length; i++) {
+            uint256 ticketId = users[_userAddress].ticketsArray[i];
+            if (tickets[ticketId].eventId == _eventId) {
                 return true;
             }
         }
-
         return false;
     }
 }
