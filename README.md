@@ -41,3 +41,14 @@ Traditional event ticketing systems face challenges related to security, transpa
    - The prototype aims to showcase the potential of a blockchain RFID-based ticketing system and lay the foundation for future enhancements.
 
 By combining blockchain and RFID technology, SecurePass aims to provide a secure, efficient, and user-friendly ticketing solution for events, setting the stage for a more advanced and comprehensive system in the future.
+
+## Hardware Used
+1. ESP8266 WiFi
+2. RC522 RFID Scanner
+3. MiFare RFID Cards (1K)
+4. I2C LCD Module
+5. Wires
+6. Breadboard
+
+### Demo Link
+[https://drive.google.com/drive/folders/1f6d_AVI6rTvhzqOaxe-YszYfiw7rWIv9]
